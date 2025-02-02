@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b05c83971e3dca94f9fa460d396385e5, type: 3}
+  m_Name: BuildinCatalog
+  m_EditorClassIdentifier: 
+  PackageName: DefaultPackage
+  PackageVersion: 2025-01-30-1328
+  Wrappers:
+  - BundleGUID: 4eaebb10fc85b2c92994ae5dba38ff7e
+    FileName: 4eaebb10fc85b2c92994ae5dba38ff7e.bundle
+  - BundleGUID: 61dfc0f2d3fbb2d1656653a5f7a3baaa
+    FileName: 61dfc0f2d3fbb2d1656653a5f7a3baaa.bundle
+  - BundleGUID: 9d058a2c4b06b5c1c90b7870bf518db8
+    FileName: 9d058a2c4b06b5c1c90b7870bf518db8.bundle
+  - BundleGUID: a9b3d11862539a411749958443b41758
+    FileName: a9b3d11862539a411749958443b41758.bundle
+  - BundleGUID: af353530e50c3b75053f40a54d7ea4cf
+    FileName: af353530e50c3b75053f40a54d7ea4cf.bundle
+  - BundleGUID: ced840f8e32282daeddb065bd3354ef6
+    FileName: ced840f8e32282daeddb065bd3354ef6.bundle

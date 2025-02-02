@@ -1,0 +1,16 @@
+{
+    "name": "UniGears.GithubPagesEx.Editor",
+    "rootNamespace": "UniGears.GithubPagesEx.Editor",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

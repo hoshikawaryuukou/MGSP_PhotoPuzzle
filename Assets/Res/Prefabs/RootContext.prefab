@@ -49,9 +49,6 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  networkHandler:
-    isNoInternetSimulation: 0
-  contextTable: {fileID: 11400000, guid: 8d7caa4593b2fb448aadbf6d9a8817a3, type: 2}
 --- !u!114 &-2311240400510956210
 MonoBehaviour:
   m_ObjectHideFlags: 0

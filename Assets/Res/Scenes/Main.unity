@@ -244,6 +244,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  assetMode: 1
 --- !u!4 &811111392
 Transform:
   m_ObjectHideFlags: 0

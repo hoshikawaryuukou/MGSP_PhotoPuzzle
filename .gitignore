@@ -58,7 +58,10 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-UserSettings/Layouts/default-*.dwlt
-
+# Extra
+/UserSettings/Layouts/default-*.dwlt
 /Packages/nuget-packages/InstalledPackages*
-GithubPagesHelper/
+/GithubPagesHelper/
+/Bundles/
+/[Aa]ssets/StreamingAssets/yoo/
+/[Aa]ssets/StreamingAssets/yoo.meta

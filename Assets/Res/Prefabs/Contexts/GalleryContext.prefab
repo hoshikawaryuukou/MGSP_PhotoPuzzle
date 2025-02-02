@@ -118,9 +118,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: Runtime.Contexts.AppContext
+    TypeName: Contexts.AppContext
   autoRun: 1
   autoInjectGameObjects: []
+  networkHandler:
+    isNoInternetSimulation: 0
   gallerySheet: {fileID: 1363226024225557558}
 --- !u!114 &1363226024225557558
 MonoBehaviour:
