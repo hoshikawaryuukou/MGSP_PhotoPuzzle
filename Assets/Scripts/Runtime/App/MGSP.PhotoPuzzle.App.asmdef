@@ -1,0 +1,23 @@
+{
+    "name": "MGSP.PhotoPuzzle.App",
+    "rootNamespace": "MGSP.PhotoPuzzle.App",
+    "references": [
+        "GUID:88be65f96b86746888c927a5c8ff3534",
+        "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
+        "GUID:4f682e06dbb3e624faedad9cc27106cc",
+        "GUID:733ed80df6218654dbd1d27ee194a0ec",
+        "GUID:70d8caa33f868ad4a8b52e6eae875946",
+        "GUID:77221876cc6b8244180b96e320b1bcd4",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
