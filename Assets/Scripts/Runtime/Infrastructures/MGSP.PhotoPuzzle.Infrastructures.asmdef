@@ -2,7 +2,7 @@
     "name": "MGSP.PhotoPuzzle.Infrastructures",
     "rootNamespace": "MGSP.PhotoPuzzle.Infrastructures",
     "references": [
-        "GUID:88be65f96b86746888c927a5c8ff3534"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
