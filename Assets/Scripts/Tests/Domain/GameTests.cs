@@ -26,14 +26,9 @@ namespace MGSP.PhotoPuzzle.Domain.Tests
         [Test]
         public void Constructor_WithSingleTile_CreatesValidGame()
         {
-            // Arrange & Act
-            var game = new Game(1, 1);
-            var grid = game.GetGrid();
-
-            // Assert
-            Assert.AreEqual(1, grid.Count);
-            Assert.AreEqual(0, grid[0]);
-            Assert.IsTrue(game.CheckWin());
+            // Arrange & Act - Single tile should now throw exception due to width + height < 2 rule
+            var ex = Assert.Throws<ArgumentException>(() => new Game(1, 1));
+            Assert.That(ex.Message, Contains.Substring("The sum of width and height must be at least 3 to create a valid puzzle"));
         }
 
         [Test]
@@ -83,7 +78,7 @@ namespace MGSP.PhotoPuzzle.Domain.Tests
             // Assert
             Assert.AreEqual(expectedAtIndex1, gridAfter[index1]);
             Assert.AreEqual(expectedAtIndex2, gridAfter[index2]);
-            
+
             // Verify other positions remain unchanged
             for (int i = 0; i < gridAfter.Count; i++)
             {
@@ -136,7 +131,7 @@ namespace MGSP.PhotoPuzzle.Domain.Tests
         {
             // Arrange
             var game = new Game(3, 3);
-            
+
             // Act - Perform some swaps to ensure the game is not in winning state
             game.Swap(0, 1);
             bool isWin = game.CheckWin();
@@ -162,10 +157,10 @@ namespace MGSP.PhotoPuzzle.Domain.Tests
         {
             // Arrange
             var game = new Game(2, 2); // 2x2 = 4 tiles
-            
+
             // Act - Manually restore order by finding where each number should go
             var grid = game.GetGrid();
-            
+
             // Find current positions and restore order
             for (int targetValue = 0; targetValue < grid.Count; targetValue++)
             {
@@ -175,7 +170,7 @@ namespace MGSP.PhotoPuzzle.Domain.Tests
                     game.Swap(targetValue, currentPosition);
                 }
             }
-            
+
             bool isWin = game.CheckWin();
             var finalGrid = game.GetGrid();
 
@@ -188,17 +183,33 @@ namespace MGSP.PhotoPuzzle.Domain.Tests
         }
 
         [Test]
-        public void CheckWin_WithSingleTileGame_AlwaysReturnsTrue()
+        public void CheckWin_WithMinimumValidGame_WorksCorrectly()
         {
-            // Test single tile game - should always return true
-            var singleTileGame = new Game(1, 1);
-            Assert.IsTrue(singleTileGame.CheckWin());
-            Assert.AreEqual(0, singleTileGame.GetGrid()[0]);
-            
-            // Even after "swapping" with itself
-            singleTileGame.Swap(0, 0);
-            Assert.IsTrue(singleTileGame.CheckWin());
-            Assert.AreEqual(0, singleTileGame.GetGrid()[0]);
+            // Test smallest valid game (1x2 or 2x1) - should be able to win
+            var game = new Game(1, 2);
+
+            // The game starts shuffled, so manually restore order
+            var grid = game.GetGrid();
+
+            // Find current positions and restore order
+            for (int targetValue = 0; targetValue < grid.Count; targetValue++)
+            {
+                int currentPosition = grid.ToList().IndexOf(targetValue);
+                if (currentPosition != targetValue)
+                {
+                    game.Swap(targetValue, currentPosition);
+                }
+            }
+
+            bool isWin = game.CheckWin();
+            var finalGrid = game.GetGrid();
+
+            // Assert
+            Assert.IsTrue(isWin);
+            for (int i = 0; i < finalGrid.Count; i++)
+            {
+                Assert.AreEqual(i, finalGrid[i]);
+            }
         }
     }
 }

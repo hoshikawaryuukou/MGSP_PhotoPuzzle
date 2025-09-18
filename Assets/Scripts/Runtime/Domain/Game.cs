@@ -15,6 +15,9 @@ namespace MGSP.PhotoPuzzle.Domain
             if (height <= 0)
                 throw new System.ArgumentOutOfRangeException(nameof(height), height, "height must be greater than 0.");
 
+            if (width + height < 3)
+                throw new System.ArgumentException("The sum of width and height must be at least 3 to create a valid puzzle.");
+
             int size = width * height;
             grid = new int[size];
             for (int i = 0; i < size; i++)
@@ -22,11 +25,25 @@ namespace MGSP.PhotoPuzzle.Domain
                 grid[i] = i;
             }
 
-            // Fisher-Yates Shuffle
-            for (int i = size - 1; i > 0; i--)
+            // Only shuffle if the puzzle has more than one tile
+            if (size > 1)
             {
-                int j = _random.Next(i + 1);
-                (grid[i], grid[j]) = (grid[j], grid[i]);
+                // Fisher-Yates Shuffle - repeat until the grid is not in winning state
+                do
+                {
+                    // Reset to ordered state before each shuffle attempt
+                    for (int i = 0; i < size; i++)
+                    {
+                        grid[i] = i;
+                    }
+                    
+                    // Perform Fisher-Yates shuffle
+                    for (int i = size - 1; i > 0; i--)
+                    {
+                        int j = _random.Next(i + 1);
+                        (grid[i], grid[j]) = (grid[j], grid[i]);
+                    }
+                } while (CheckWin());
             }
         }
 
