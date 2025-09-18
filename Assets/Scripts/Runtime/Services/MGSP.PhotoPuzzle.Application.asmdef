@@ -1,10 +1,11 @@
-{
-    "name": "MGSP.PhotoPuzzle.Services",
-    "rootNamespace": "MGSP.PhotoPuzzle.Services",
+﻿{
+    "name": "MGSP.PhotoPuzzle.Application",
+    "rootNamespace": "MGSP.PhotoPuzzle.Application",
     "references": [
         "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
         "GUID:304192ed7a962174fb5f66ab1b86b703",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
