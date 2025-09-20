@@ -1,5 +1,6 @@
 using MessagePipe;
 using MGSP.PhotoPuzzle.Infrastructures;
+using MGSP.PhotoPuzzle.Presentation.Flows;
 using MGSP.PhotoPuzzle.Presentation.Presenters;
 using MGSP.PhotoPuzzle.Presentation.Stores;
 using MGSP.PhotoPuzzle.Presentation.Views;
@@ -24,7 +25,6 @@ namespace MGSP.PhotoPuzzle.Contexts
 
             builder.Register<GameEventEmitter>(Lifetime.Singleton);
 
-            builder.RegisterInstance(new AppStore());
             builder.Register<PhotoStore>(Lifetime.Singleton);
             builder.RegisterInstance(new OptionStore());
             builder.Register<GamePlayStore>(Lifetime.Singleton);
@@ -37,10 +37,13 @@ namespace MGSP.PhotoPuzzle.Contexts
             builder.RegisterComponentInHierarchy<PuzzleBoardView>();
             builder.RegisterComponentInHierarchy<OptionView>();
 
-            builder.RegisterEntryPoint<AppPresenter>(Lifetime.Singleton);
-            builder.RegisterEntryPoint<GalleryPresenter>(Lifetime.Singleton);
-            builder.RegisterEntryPoint<GamePlayPresenter>(Lifetime.Singleton);
-            builder.RegisterEntryPoint<GamePlayStagePresenter>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<GallerySheetPresenter>(Lifetime.Singleton);
+            builder.Register<GameSetupModalPresenter>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<GamePlaySheetPresenter>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<GamePlayPlayerPresenter>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<GamePlayDisplayPresenter>(Lifetime.Singleton);
+
+            builder.RegisterEntryPoint<AppFlowController>(Lifetime.Singleton);
         }
     }
 }

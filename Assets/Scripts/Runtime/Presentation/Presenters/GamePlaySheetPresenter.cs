@@ -4,49 +4,46 @@ using MGSP.PhotoPuzzle.Presentation.Stores;
 using MGSP.PhotoPuzzle.Presentation.Views;
 using R3;
 using System;
+using System.Threading;
 using VContainer.Unity;
 
 namespace MGSP.PhotoPuzzle.Presentation.Presenters
 {
-    public sealed class GamePlayPresenter : IInitializable, IDisposable
+    public sealed class GamePlaySheetPresenter : IInitializable, IDisposable
     {
-        private readonly AppStore appStore;
+        private readonly ISubscriber<GameRequested> gameRequestedSubscriber;
+        private readonly IPublisher<PhotoRequested> photoRequestedPublisher;
         private readonly OptionStore optionStore;
         private readonly PhotoStore photoStore;
         private readonly GamePlayStore gamePlayStore;
         private readonly GamePlayMenuView gamePlayMenuView;
         private readonly PuzzleBoardView boardView;
         private readonly PreviewView previewView;
+        private readonly GameSetupModalPresenter gameSetupModalPresenter;
 
         private readonly CompositeDisposable disposables = new();
 
-        public GamePlayPresenter(AppStore appStore, OptionStore optionStore, PhotoStore photoStore, GamePlayStore gamePlayStore, GamePlayMenuView gamePlayMenuView, PuzzleBoardView boardView, PreviewView previewView)
+        public GamePlaySheetPresenter(ISubscriber<GameRequested> gameRequestedSubscriber, IPublisher<PhotoRequested> photoRequestedPublisher, OptionStore optionStore, PhotoStore photoStore, GamePlayStore gamePlayStore, GamePlayMenuView gamePlayMenuView, PuzzleBoardView boardView, PreviewView previewView, GameSetupModalPresenter gameSetupModalPresenter)
         {
-            this.appStore = appStore;
+            this.gameRequestedSubscriber = gameRequestedSubscriber;
+            this.photoRequestedPublisher = photoRequestedPublisher;
             this.optionStore = optionStore;
             this.photoStore = photoStore;
             this.gamePlayStore = gamePlayStore;
             this.gamePlayMenuView = gamePlayMenuView;
             this.boardView = boardView;
             this.previewView = previewView;
+            this.gameSetupModalPresenter = gameSetupModalPresenter;
         }
 
         void IInitializable.Initialize()
         {
-            appStore.StatusRP
-                .Select(status => status == AppStatus.GamePlay)
-                .DistinctUntilChanged()
-                .Subscribe(isActive =>
+            gameRequestedSubscriber
+                .Subscribe(_ => 
                 {
-                    SetActive(isActive);
-
-                    var width = optionStore.WidthRP.CurrentValue;
-                    var height = optionStore.HeightRP.CurrentValue;
-                    var photoTex = photoStore.PhotoTexRP.CurrentValue;
-                    if (isActive && photoTex != null)
-                    {
-                        gamePlayStore.StartNewGame(width, height, photoTex, default).Forget();
-                    }
+                    boardView.gameObject.SetActive(true);
+                    gamePlayMenuView.gameObject.SetActive(true);
+                    StartNewGame();
                 })
                 .AddTo(disposables);
 
@@ -55,7 +52,7 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
                 .AddTo(disposables);
 
             gamePlayStore.PreviewOnRP
-                .Subscribe(value => 
+                .Subscribe(value =>
                 {
                     gamePlayMenuView.SetPreviewOn(value);
                     previewView.gameObject.SetActive(value);
@@ -63,20 +60,16 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
                 .AddTo(disposables);
 
             gamePlayMenuView.ReplayRequested
-                .Subscribe(_ =>
-                {
-                    var width = optionStore.WidthRP.CurrentValue;
-                    var height = optionStore.HeightRP.CurrentValue;
-                    var photoTex = photoStore.PhotoTexRP.CurrentValue;
-                    if (photoTex != null)
-                    {
-                        gamePlayStore.StartNewGame(width, height, photoTex, default).Forget();
-                    }
-                })
+                .Subscribe(_ => Replay(default).Forget())
                 .AddTo(disposables);
 
             gamePlayMenuView.NewGameRequested
-                .Subscribe(_ => appStore.SetStatus(AppStatus.Gallery))
+                .Subscribe(_ => 
+                {
+                    boardView.gameObject.SetActive(false);
+                    gamePlayMenuView.gameObject.SetActive(false);
+                    photoRequestedPublisher.Publish(default); 
+                })
                 .AddTo(disposables);
 
             gamePlayMenuView.PreviewRequested
@@ -86,21 +79,11 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
             gamePlayMenuView.ClearRequested
                 .Subscribe(_ => { gamePlayMenuView.SetCompletedConfirmed(); })
                 .AddTo(disposables);
-
-            boardView.PieceSelected
-                .Subscribe(index => gamePlayStore.Pick(index).Forget())
-                .AddTo(disposables);
         }
 
         void IDisposable.Dispose()
         {
             disposables.Dispose();
-        }
-
-        private void SetActive(bool isActive)
-        {
-            boardView.gameObject.SetActive(isActive);
-            gamePlayMenuView.gameObject.SetActive(isActive);
         }
 
         private void OnStatusChanged(GamePlayStatus status)
@@ -118,6 +101,26 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(status), status, null);
+            }
+        }
+
+        private void StartNewGame()
+        {
+            var width = optionStore.WidthRP.CurrentValue;
+            var height = optionStore.HeightRP.CurrentValue;
+            var photoTex = photoStore.PhotoTexRP.CurrentValue;
+            if (photoTex != null)
+            {
+                gamePlayStore.StartNewGame(width, height, photoTex, default).Forget();
+            }
+        }
+
+        private async UniTask Replay( CancellationToken cancellationToken)
+        {
+            var result = await gameSetupModalPresenter.Show(cancellationToken);
+            if (result == GameSetupModalResult.Confirmed)
+            {
+                StartNewGame();
             }
         }
     }

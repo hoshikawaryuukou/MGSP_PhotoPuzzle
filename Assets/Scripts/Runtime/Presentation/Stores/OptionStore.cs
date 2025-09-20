@@ -1,4 +1,5 @@
 using R3;
+using System.Collections.Generic;
 
 namespace MGSP.PhotoPuzzle.Presentation.Stores
 {
@@ -12,5 +13,8 @@ namespace MGSP.PhotoPuzzle.Presentation.Stores
 
         public void SetWidth(int width) => widthRP.Value = width;
         public void SetHeight(int height) => heightRP.Value = height;
+
+        public IReadOnlyList<int> WidthOptions { get; } = new List<int> { 3, 4, 5, 6, 7 };
+        public IReadOnlyList<int> HeightOptions { get; } = new List<int> { 3, 4, 5, 6, 7 };
     }
 }

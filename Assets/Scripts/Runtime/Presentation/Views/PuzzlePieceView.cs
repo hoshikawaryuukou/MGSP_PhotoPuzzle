@@ -6,19 +6,28 @@ namespace MGSP.PhotoPuzzle.Presentation.Views
 {
     public sealed class PuzzlePieceView : MonoBehaviour
     {
-        [SerializeField] private Image image;
+        [SerializeField] private RawImage rawimage;
         [SerializeField] private Button button;
 
         public Observable<Unit> Clicked => button.OnClickAsObservable();
 
-        public void SetImage(Sprite sprite)
+        public void SetImage(Texture2D tex, Rect uvRect)
         {
-            image.sprite = sprite;
+            rawimage.texture = tex;
+            rawimage.uvRect = uvRect;
         }
 
-        public Sprite GetImage()
+        public void SetUVRect(Rect uvRect) => rawimage.uvRect = uvRect;
+
+        public Rect GetUVRect() => rawimage.uvRect;
+
+        /// <summary>
+        /// Reset the piece to default state when returning to pool
+        /// </summary>
+        public void ResetPiece()
         {
-            return image.sprite;
+            rawimage.texture = null;
+            rawimage.uvRect = new Rect(0, 0, 1, 1);
         }
     }
 }

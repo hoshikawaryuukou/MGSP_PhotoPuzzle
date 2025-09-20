@@ -1,4 +1,4 @@
-﻿{
+{
     "name": "MGSP.PhotoPuzzle.Contexts",
     "rootNamespace": "MGSP.PhotoPuzzle.Contexts",
     "references": [
@@ -6,8 +6,8 @@
         "GUID:4f682e06dbb3e624faedad9cc27106cc",
         "GUID:c037be609715dab41b5c4ab68080ce7c",
         "GUID:304192ed7a962174fb5f66ab1b86b703",
-        "GUID:dabfd8a486263cc429488b661120297f",
         "GUID:6047521a0d8f22c458c1d0a4ac2d7033",
+        "GUID:dabfd8a486263cc429488b661120297f",
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
     ],
     "includePlatforms": [],

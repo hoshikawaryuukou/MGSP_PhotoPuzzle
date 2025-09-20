@@ -11,24 +11,24 @@ using VContainer.Unity;
 
 namespace MGSP.PhotoPuzzle.Presentation.Presenters
 {
-    public sealed class GamePlayStagePresenter : IInitializable, IDisposable
+    public sealed class GamePlayDisplayPresenter : IInitializable, IDisposable
     {
-        private readonly PhotoStore photoStore;
-        private readonly GamePlayStore gamePlayStore;
         private readonly IAsyncSubscriber<GameStartedEvent> gameStartSubscriber;
         private readonly IAsyncSubscriber<CellSwappedEvent> cellSwappedSubscriber;
         private readonly IAsyncSubscriber<GameEndedEvent> gameEndedSubscriber;
+        private readonly PhotoStore photoStore;
+        private readonly GamePlayStore gamePlayStore;
         private readonly PuzzleBoardView boardView;
 
         private readonly CompositeDisposable disposables = new();
 
-        public GamePlayStagePresenter(PhotoStore photoStore, GamePlayStore gamePlayStore, IAsyncSubscriber<GameStartedEvent> gameStartSubscriber, IAsyncSubscriber<CellSwappedEvent> cellSwappedSubscriber, IAsyncSubscriber<GameEndedEvent> gameEndedSubscriber, PuzzleBoardView boardView)
+        public GamePlayDisplayPresenter(IAsyncSubscriber<GameStartedEvent> gameStartSubscriber, IAsyncSubscriber<CellSwappedEvent> cellSwappedSubscriber, IAsyncSubscriber<GameEndedEvent> gameEndedSubscriber, PhotoStore photoStore, GamePlayStore gamePlayStore, PuzzleBoardView boardView)
         {
-            this.photoStore = photoStore;
-            this.gamePlayStore = gamePlayStore;
             this.gameStartSubscriber = gameStartSubscriber;
             this.cellSwappedSubscriber = cellSwappedSubscriber;
             this.gameEndedSubscriber = gameEndedSubscriber;
+            this.photoStore = photoStore;
+            this.gamePlayStore = gamePlayStore;
             this.boardView = boardView;
         }
 
@@ -51,11 +51,7 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
             var photoTex = photoStore.PhotoTexRP.CurrentValue;
             if (photoTex != null && boardView != null)
             {
-                await boardView.PreparePieces(evt.Width, evt.Height);
-                for (int i = 0; i < evt.InitialIndices.Count; i++)
-                {
-                    boardView.SetPieceImage(i, gamePlayStore.PieceTextures[evt.InitialIndices[i]]);
-                }
+                await boardView.PreparePieces(evt.Width, evt.Height, photoTex, evt.InitialIndices);
             }
             else
             {

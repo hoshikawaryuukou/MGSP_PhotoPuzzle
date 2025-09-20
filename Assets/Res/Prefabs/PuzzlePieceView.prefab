@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2894827748278708756}
   - component: {fileID: 4463161614474528344}
-  - component: {fileID: 2773533594572215501}
+  - component: {fileID: 6948122577080712017}
   - component: {fileID: 4248978390785174869}
   - component: {fileID: 4562736518983383570}
   m_Layer: 0
@@ -47,7 +47,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8193543953059331564}
   m_CullTransparentMesh: 1
---- !u!114 &2773533594572215501
+--- !u!114 &6948122577080712017
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,9 +56,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8193543953059331564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -67,16 +67,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!114 &4248978390785174869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +114,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 2773533594572215501}
+  m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -133,5 +130,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a187ef4d915796943b6b737c3b292978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MGSP.PhotoPuzzle.App::MGSP.PhotoPuzzle.Presentation.CellView
-  image: {fileID: 2773533594572215501}
+  rawimage: {fileID: 6948122577080712017}
   button: {fileID: 4248978390785174869}
