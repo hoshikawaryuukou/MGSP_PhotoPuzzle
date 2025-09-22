@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using MessagePipe;
 using System.Collections.Generic;
 using System.Threading;
+using VContainer;
 
 namespace MGSP.PhotoPuzzle.Services.Events
 {
@@ -11,6 +12,7 @@ namespace MGSP.PhotoPuzzle.Services.Events
         private readonly IAsyncPublisher<CellSwappedEvent> cellSwappedPub;
         private readonly IAsyncPublisher<GameEndedEvent> gameEndedPub;
 
+        [Inject]
         public GameEventEmitter(IAsyncPublisher<GameStartedEvent> gameStartedPub, IAsyncPublisher<CellSwappedEvent> cellSwappedPub, IAsyncPublisher<GameEndedEvent> gameEndedPub)
         {
             this.gameStartedPub = gameStartedPub;
