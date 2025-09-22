@@ -1,6 +1,6 @@
-﻿{
-    "name": "MGSP.PhotoPuzzle.Application",
-    "rootNamespace": "MGSP.PhotoPuzzle.Application",
+{
+    "name": "MGSP.PhotoPuzzle.Services",
+    "rootNamespace": "MGSP.PhotoPuzzle.Services",
     "references": [
         "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
         "GUID:304192ed7a962174fb5f66ab1b86b703",

@@ -2,6 +2,7 @@ using MessagePipe;
 using R3;
 using System;
 using UnityEngine;
+using VContainer;
 using VContainer.Unity;
 
 namespace MGSP.PhotoPuzzle.Presentation.Flows
@@ -10,6 +11,7 @@ namespace MGSP.PhotoPuzzle.Presentation.Flows
     {
         private readonly IPublisher<PhotoRequested> photoRequestedPublisher;
 
+        [Inject]
         public AppFlowController(IPublisher<PhotoRequested> photoRequestedPublisher)
         {
             this.photoRequestedPublisher = photoRequestedPublisher;

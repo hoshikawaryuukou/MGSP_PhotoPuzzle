@@ -5,6 +5,7 @@ using MGSP.PhotoPuzzle.Presentation.Views;
 using R3;
 using System.Linq;
 using System.Threading;
+using VContainer;
 
 namespace MGSP.PhotoPuzzle.Presentation.Presenters
 
@@ -13,9 +14,10 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
     public sealed class GameSetupModalPresenter
     {
         private readonly OptionStore optionStore;
-        private readonly OptionView optionView;
+        private readonly OptionModal optionView;
 
-        public GameSetupModalPresenter(OptionStore optionStore, OptionView optionView)
+        [Inject]
+        public GameSetupModalPresenter(OptionStore optionStore, OptionModal optionView)
         {
             this.optionStore = optionStore;
             this.optionView = optionView;
@@ -25,13 +27,10 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
         {
             var completionSource = new UniTaskCompletionSource<GameSetupModalResult>();
             
-            // Set up the view before showing
             SetupView();
             
-            // Show the modal
             optionView.gameObject.SetActive(true);
             
-            // Subscribe to user interactions
             var closeSubscription = optionView.CloseRequested
                 .Subscribe(_ =>
                 {
@@ -47,7 +46,6 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
                     completionSource.TrySetResult(GameSetupModalResult.Confirmed);
                 });
             
-            // Handle cancellation
             var cancellationRegistration = cancellationToken.Register(() =>
             {
                 optionView.gameObject.SetActive(false);
@@ -61,7 +59,6 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
             }
             finally
             {
-                // Clean up subscriptions
                 closeSubscription?.Dispose();
                 playSubscription?.Dispose();
                 cancellationRegistration.Dispose();

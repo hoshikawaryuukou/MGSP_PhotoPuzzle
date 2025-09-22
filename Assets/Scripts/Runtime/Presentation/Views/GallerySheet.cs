@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace MGSP.PhotoPuzzle.Presentation.Views
 {
-    public sealed class GalleryMenuBar : MonoBehaviour
+    public sealed class GallerySheet : MonoBehaviour
     {
         [SerializeField] private Button randomButton;
         [SerializeField] private Button playButton;
@@ -28,5 +28,14 @@ namespace MGSP.PhotoPuzzle.Presentation.Views
         {
             playButton.interactable = value;
         }
+
+        public void SetDownloading()
+        {
+
+        }
+
+
+
+
     }
 }

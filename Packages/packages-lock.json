@@ -62,6 +62,13 @@
       "dependencies": {},
       "hash": "97055f2ed8aa125a8212b080475388b831511b90"
     },
+    "com.miniaturegardenstudio.unigears.uguikit": {
+      "version": "https://github.com/hoshikawaryuukou/MGSU_UniGears.git?path=Assets/UGUIKit",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c1ad41557e0ee45e2aad97d3f6bdf7147339d05f"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

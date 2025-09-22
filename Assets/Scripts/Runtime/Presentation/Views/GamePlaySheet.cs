@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace MGSP.PhotoPuzzle.Presentation.Views
 {
-    public sealed class GamePlayMenuView : MonoBehaviour
+    public sealed class GamePlaySheet : MonoBehaviour
     {
         [SerializeField] private Button newGameButton;
         [SerializeField] private Button previewButton;

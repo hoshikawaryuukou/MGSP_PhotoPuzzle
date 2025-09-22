@@ -4,6 +4,7 @@ using MGSP.PhotoPuzzle.Presentation.Stores;
 using MGSP.PhotoPuzzle.Presentation.Views;
 using R3;
 using System;
+using VContainer;
 using VContainer.Unity;
 
 namespace MGSP.PhotoPuzzle.Presentation.Presenters
@@ -15,6 +16,7 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
 
         private readonly CompositeDisposable disposables = new();
 
+        [Inject]
         public GamePlayPlayerPresenter(GamePlayStore gamePlayStore, PuzzleBoardView boardView)
         {
             this.gamePlayStore = gamePlayStore;

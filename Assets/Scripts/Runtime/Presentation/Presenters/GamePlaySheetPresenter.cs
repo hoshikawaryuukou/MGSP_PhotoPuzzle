@@ -5,6 +5,7 @@ using MGSP.PhotoPuzzle.Presentation.Views;
 using R3;
 using System;
 using System.Threading;
+using VContainer;
 using VContainer.Unity;
 
 namespace MGSP.PhotoPuzzle.Presentation.Presenters
@@ -16,14 +17,15 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
         private readonly OptionStore optionStore;
         private readonly PhotoStore photoStore;
         private readonly GamePlayStore gamePlayStore;
-        private readonly GamePlayMenuView gamePlayMenuView;
+        private readonly GamePlaySheet gamePlayMenuView;
         private readonly PuzzleBoardView boardView;
         private readonly PreviewView previewView;
         private readonly GameSetupModalPresenter gameSetupModalPresenter;
 
         private readonly CompositeDisposable disposables = new();
 
-        public GamePlaySheetPresenter(ISubscriber<GameRequested> gameRequestedSubscriber, IPublisher<PhotoRequested> photoRequestedPublisher, OptionStore optionStore, PhotoStore photoStore, GamePlayStore gamePlayStore, GamePlayMenuView gamePlayMenuView, PuzzleBoardView boardView, PreviewView previewView, GameSetupModalPresenter gameSetupModalPresenter)
+        [Inject]
+        public GamePlaySheetPresenter(ISubscriber<GameRequested> gameRequestedSubscriber, IPublisher<PhotoRequested> photoRequestedPublisher, OptionStore optionStore, PhotoStore photoStore, GamePlayStore gamePlayStore, GamePlaySheet gamePlayMenuView, PuzzleBoardView boardView, PreviewView previewView, GameSetupModalPresenter gameSetupModalPresenter)
         {
             this.gameRequestedSubscriber = gameRequestedSubscriber;
             this.photoRequestedPublisher = photoRequestedPublisher;

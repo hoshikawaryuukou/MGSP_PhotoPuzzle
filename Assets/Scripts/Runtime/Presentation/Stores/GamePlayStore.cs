@@ -4,6 +4,7 @@ using MGSP.PhotoPuzzle.Services.UseCases;
 using R3;
 using System.Threading;
 using UnityEngine;
+using VContainer;
 
 namespace MGSP.PhotoPuzzle.Presentation.Stores
 {
@@ -19,15 +20,16 @@ namespace MGSP.PhotoPuzzle.Presentation.Stores
         private readonly ReactiveProperty<bool> previewOnRP = new(false);
         private int firstPickedIndex = -1;
 
-        public ReadOnlyReactiveProperty<GamePlayStatus> StatusRP => statusRP;
-        public ReadOnlyReactiveProperty<bool> PreviewOnRP => previewOnRP;
-
+        [Inject]
         public GamePlayStore(CreateGame createGame, SwapPieces swapPieces, GameEventEmitter gameEventEmitter)
         {
             this.createGame = createGame;
             this.swapPieces = swapPieces;
             this.gameEventEmitter = gameEventEmitter;
         }
+
+        public ReadOnlyReactiveProperty<GamePlayStatus> StatusRP => statusRP;
+        public ReadOnlyReactiveProperty<bool> PreviewOnRP => previewOnRP;
 
         public async UniTask StartNewGame(int width, int height, Texture2D tex, CancellationToken cancellationToken)
         {

@@ -4,6 +4,7 @@ using MGSP.PhotoPuzzle.Services.Events;
 using MGSP.PhotoPuzzle.Services.Repositories;
 using System.Collections.Generic;
 using System.Threading;
+using VContainer;
 
 namespace MGSP.PhotoPuzzle.Services.UseCases
 {
@@ -11,6 +12,7 @@ namespace MGSP.PhotoPuzzle.Services.UseCases
     {
         private readonly GameRepository gameRepository;
 
+        [Inject]
         public CreateGame(GameRepository gameRepository)
         {
             this.gameRepository = gameRepository;

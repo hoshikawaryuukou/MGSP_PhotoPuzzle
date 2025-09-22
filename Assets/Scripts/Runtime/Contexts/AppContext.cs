@@ -31,11 +31,11 @@ namespace MGSP.PhotoPuzzle.Contexts
 
             builder.RegisterInstance(new LoremPicsumImageProvider());
 
-            builder.RegisterComponentInHierarchy<GalleryMenuBar>();
-            builder.RegisterComponentInHierarchy<GamePlayMenuView>();
+            builder.RegisterComponentInHierarchy<GallerySheet>();
+            builder.RegisterComponentInHierarchy<GamePlaySheet>();
             builder.RegisterComponentInHierarchy<PreviewView>();
             builder.RegisterComponentInHierarchy<PuzzleBoardView>();
-            builder.RegisterComponentInHierarchy<OptionView>();
+            builder.RegisterComponentInHierarchy<OptionModal>();
 
             builder.RegisterEntryPoint<GallerySheetPresenter>(Lifetime.Singleton);
             builder.Register<GameSetupModalPresenter>(Lifetime.Singleton);

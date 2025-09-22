@@ -1,12 +1,11 @@
 using R3;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MGSP.PhotoPuzzle.Presentation.Views
 {
-    public sealed class OptionView : MonoBehaviour
+    public sealed class OptionModal : MonoBehaviour
     {
         [SerializeField] private Button playButton;
         [SerializeField] private Button closeButton;

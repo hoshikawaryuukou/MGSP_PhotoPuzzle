@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using R3;
 using System.Collections.Generic;
+using UniGears.UGUIKit.Layouts;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -10,6 +11,7 @@ namespace MGSP.PhotoPuzzle.Presentation.Views
     {
         [SerializeField] private PuzzlePieceView prefab;
         [SerializeField] private Transform container;
+        [SerializeField] private Transform containerUnused;
         [SerializeField] private FlexibleGridLayoutGroup layoutGroup;
 
         private readonly List<PuzzlePieceView> pieceViews = new();
@@ -112,7 +114,7 @@ namespace MGSP.PhotoPuzzle.Presentation.Views
         {
             piece.ResetPiece(); // Reset piece state
             piece.gameObject.SetActive(false);
-            piece.transform.SetParent(null); // Remove from container
+            piece.transform.SetParent(containerUnused); // Remove from container
         }
 
         private void OnDestroyPoolObject(PuzzlePieceView piece)

@@ -7,6 +7,7 @@ using R3;
 using System;
 using System.Threading;
 using UnityEngine;
+using VContainer;
 using VContainer.Unity;
 
 namespace MGSP.PhotoPuzzle.Presentation.Presenters
@@ -17,18 +18,17 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
         private readonly IAsyncSubscriber<CellSwappedEvent> cellSwappedSubscriber;
         private readonly IAsyncSubscriber<GameEndedEvent> gameEndedSubscriber;
         private readonly PhotoStore photoStore;
-        private readonly GamePlayStore gamePlayStore;
         private readonly PuzzleBoardView boardView;
 
         private readonly CompositeDisposable disposables = new();
 
-        public GamePlayDisplayPresenter(IAsyncSubscriber<GameStartedEvent> gameStartSubscriber, IAsyncSubscriber<CellSwappedEvent> cellSwappedSubscriber, IAsyncSubscriber<GameEndedEvent> gameEndedSubscriber, PhotoStore photoStore, GamePlayStore gamePlayStore, PuzzleBoardView boardView)
+        [Inject]
+        public GamePlayDisplayPresenter(IAsyncSubscriber<GameStartedEvent> gameStartSubscriber, IAsyncSubscriber<CellSwappedEvent> cellSwappedSubscriber, IAsyncSubscriber<GameEndedEvent> gameEndedSubscriber, PhotoStore photoStore, PuzzleBoardView boardView)
         {
             this.gameStartSubscriber = gameStartSubscriber;
             this.cellSwappedSubscriber = cellSwappedSubscriber;
             this.gameEndedSubscriber = gameEndedSubscriber;
             this.photoStore = photoStore;
-            this.gamePlayStore = gamePlayStore;
             this.boardView = boardView;
         }
 

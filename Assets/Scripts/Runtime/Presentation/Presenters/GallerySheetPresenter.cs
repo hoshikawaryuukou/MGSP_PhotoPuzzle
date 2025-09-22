@@ -5,37 +5,39 @@ using MGSP.PhotoPuzzle.Presentation.Views;
 using R3;
 using System;
 using System.Threading;
+using VContainer;
 using VContainer.Unity;
 
 namespace MGSP.PhotoPuzzle.Presentation.Presenters
 {
     public sealed class GallerySheetPresenter : IInitializable, IDisposable
     {
-        private readonly ISubscriber<PhotoRequested> galleryRequestedSubscriber;
+        private readonly ISubscriber<PhotoRequested> photoRequestedSubscriber;
         private readonly IPublisher<GameRequested> gameRequestedPublisher;
         private readonly PhotoStore photoStore;
-        private readonly GalleryMenuBar galleryMenuView;
+        private readonly GallerySheet gallerySheet;
         private readonly PreviewView previewView;
         private readonly GameSetupModalPresenter gameSetupModalPresenter;
 
         private readonly CompositeDisposable disposables = new();
 
-        public GallerySheetPresenter(ISubscriber<PhotoRequested> galleryRequestedSubscriber, IPublisher<GameRequested> gameRequestedPublisher, PhotoStore photoStore, GalleryMenuBar galleryMenuView, PreviewView previewView, GameSetupModalPresenter gameSetupModalPresenter)
+        [Inject]
+        public GallerySheetPresenter(ISubscriber<PhotoRequested> photoRequestedSubscriber, IPublisher<GameRequested> gameRequestedPublisher, PhotoStore photoStore, GallerySheet gallerySheet, PreviewView previewView, GameSetupModalPresenter gameSetupModalPresenter)
         {
-            this.galleryRequestedSubscriber = galleryRequestedSubscriber;
+            this.photoRequestedSubscriber = photoRequestedSubscriber;
             this.gameRequestedPublisher = gameRequestedPublisher;
             this.photoStore = photoStore;
-            this.galleryMenuView = galleryMenuView;
+            this.gallerySheet = gallerySheet;
             this.previewView = previewView;
             this.gameSetupModalPresenter = gameSetupModalPresenter;
         }
 
         void IInitializable.Initialize()
         {
-            galleryRequestedSubscriber
+            photoRequestedSubscriber
                 .Subscribe(_ =>
                 {
-                    galleryMenuView.gameObject.SetActive(true);
+                    gallerySheet.gameObject.SetActive(true);
                     previewView.gameObject.SetActive(true);
                     RandomInage();
                 })
@@ -49,11 +51,11 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
                 .Subscribe(OnStatusChanged)
                 .AddTo(disposables);
 
-            galleryMenuView.RandomRequested
+            gallerySheet.RandomRequested
                 .Subscribe(_ => RandomInage())
                 .AddTo(disposables);
 
-            galleryMenuView.PlayRequested
+            gallerySheet.PlayRequested
                 .Subscribe(_ => OnPlayRequested(default).Forget())
                 .AddTo(disposables);
         }
@@ -76,20 +78,25 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
         {
             switch (status)
             {
-                case PhotoStatus.None:
-                    galleryMenuView.SetRnadomButtonLabel("Random");
-                    galleryMenuView.SetRandomButtonInteractable(true);
-                    galleryMenuView.SetPlayButtonInteractable(false);
+                case PhotoStatus.None: 
+                    gallerySheet.SetRnadomButtonLabel("Random");
+                    gallerySheet.SetRandomButtonInteractable(true);
+                    gallerySheet.SetPlayButtonInteractable(false);
                     break;
                 case PhotoStatus.Downloading:
-                    galleryMenuView.SetRnadomButtonLabel("Loading...");
-                    galleryMenuView.SetRandomButtonInteractable(false);
-                    galleryMenuView.SetPlayButtonInteractable(false);
+                    gallerySheet.SetRnadomButtonLabel("Downloading...");
+                    gallerySheet.SetRandomButtonInteractable(false);
+                    gallerySheet.SetPlayButtonInteractable(false);
                     break;
                 case PhotoStatus.Ready:
-                    galleryMenuView.SetRnadomButtonLabel("Random");
-                    galleryMenuView.SetRandomButtonInteractable(true);
-                    galleryMenuView.SetPlayButtonInteractable(true);
+                    gallerySheet.SetRnadomButtonLabel("Random");
+                    gallerySheet.SetRandomButtonInteractable(true);
+                    gallerySheet.SetPlayButtonInteractable(true);
+                    break;
+                case PhotoStatus.Failed:
+                    gallerySheet.SetRnadomButtonLabel("Retry");
+                    gallerySheet.SetRandomButtonInteractable(true);
+                    gallerySheet.SetPlayButtonInteractable(false);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(status), status, null);
@@ -101,7 +108,7 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
             var result = await gameSetupModalPresenter.Show(cancellationToken);
             if (result == GameSetupModalResult.Confirmed)
             {
-                galleryMenuView.gameObject.SetActive(false);
+                gallerySheet.gameObject.SetActive(false);
                 previewView.gameObject.SetActive(false);
                 gameRequestedPublisher.Publish(default);
             }
