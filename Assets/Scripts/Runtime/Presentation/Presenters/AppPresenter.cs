@@ -1,18 +1,18 @@
 using MessagePipe;
+using MGSP.PhotoPuzzle.Presentation.Routes;
 using R3;
 using System;
-using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace MGSP.PhotoPuzzle.Presentation.Flows
+namespace MGSP.PhotoPuzzle.Presentation.Presenters
 {
-    public sealed class AppFlowController : IStartable, IDisposable
+    public sealed class AppPresenter : IStartable, IDisposable
     {
         private readonly IPublisher<PhotoRequested> photoRequestedPublisher;
 
         [Inject]
-        public AppFlowController(IPublisher<PhotoRequested> photoRequestedPublisher)
+        public AppPresenter(IPublisher<PhotoRequested> photoRequestedPublisher)
         {
             this.photoRequestedPublisher = photoRequestedPublisher;
         }
@@ -21,8 +21,6 @@ namespace MGSP.PhotoPuzzle.Presentation.Flows
 
         void IStartable.Start()
         {
-            Debug.Log("AppFlowController started");
-
             photoRequestedPublisher.Publish(default);
         }
 

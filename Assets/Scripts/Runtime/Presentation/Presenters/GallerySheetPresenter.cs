@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using MessagePipe;
+using MGSP.PhotoPuzzle.Presentation.Routes;
 using MGSP.PhotoPuzzle.Presentation.Stores;
 using MGSP.PhotoPuzzle.Presentation.Views;
 using R3;
@@ -94,7 +95,7 @@ namespace MGSP.PhotoPuzzle.Presentation.Presenters
                     gallerySheet.SetPlayButtonInteractable(true);
                     break;
                 case PhotoStatus.Failed:
-                    gallerySheet.SetRnadomButtonLabel("Retry");
+                    gallerySheet.SetRnadomButtonLabel("<color=red>Retry</color>");
                     gallerySheet.SetRandomButtonInteractable(true);
                     gallerySheet.SetPlayButtonInteractable(false);
                     break;
