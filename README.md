@@ -132,3 +132,20 @@ Domain 層採用物件導向設計，遵循 CQS（Command Query Separation）原
 **主要元件**：
 - `AppContext`：使用 VContainer 進行依賴注入配置
 
+## FAQ
+
+### GameSetupModalPresenter 被其他 Presenter 調用這樣好嗎？
+
+相對可以接受，因為 `GameSetupModalPresenter` 被設計成選擇型 Dialog，需要告知呼叫端結果，且依賴方向相對單純。
+
+**設計考量**：
+- **Modal 特性**：作為模態對話框，本身就是被動等待用戶選擇的元件
+- **結果回傳**：需要將用戶的選擇（盤面大小）回傳給呼叫者
+- **單純依賴**：只有單向的調用關係，不會形成循環依賴
+- **職責明確**：專注於遊戲設定的 UI 邏輯，不包含複雜的業務邏輯
+
+**替代方案**：
+如果要更嚴格地遵循 MVP 原則，可以考慮：
+- 將 Presenter 間的通訊提到更高層的 Flow Controller
+
+但在輕量級專案中，直接調用是可接受的務實選擇。
