@@ -1,11 +1,10 @@
-﻿{
+{
     "name": "MGSP.PhotoPuzzle.Presentation",
     "rootNamespace": "MGSP.PhotoPuzzle.Presentation",
     "references": [
         "GUID:88be65f96b86746888c927a5c8ff3534",
         "GUID:3b570a5146f9d4f0fa107ed4559471a3",
         "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
-        "GUID:6047521a0d8f22c458c1d0a4ac2d7033",
         "GUID:c037be609715dab41b5c4ab68080ce7c",
         "GUID:77221876cc6b8244180b96e320b1bcd4",
         "GUID:0a2accfb208a9bb4c93b55e5dd1ab1a1",

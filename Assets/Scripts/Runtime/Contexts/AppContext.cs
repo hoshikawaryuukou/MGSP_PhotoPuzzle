@@ -1,11 +1,10 @@
 using MessagePipe;
+using MGSP.PhotoPuzzle.Application.Ports;
+using MGSP.PhotoPuzzle.Application.Stores;
+using MGSP.PhotoPuzzle.Application.UseCases;
 using MGSP.PhotoPuzzle.Infrastructures;
-using MGSP.PhotoPuzzle.Presentation.Presenters;
-using MGSP.PhotoPuzzle.Presentation.Stores;
 using MGSP.PhotoPuzzle.Presentation.Views;
-using MGSP.PhotoPuzzle.Services.Events;
-using MGSP.PhotoPuzzle.Services.Repositories;
-using MGSP.PhotoPuzzle.Services.UseCases;
+using MGSP.PhotoPuzzle.Presenters;
 using VContainer;
 using VContainer.Unity;
 
@@ -17,18 +16,16 @@ namespace MGSP.PhotoPuzzle.Contexts
         {
             builder.RegisterMessagePipe();
 
-            builder.RegisterInstance(new GameRepository());
-
+            builder.Register<DownloadPhoto>(Lifetime.Singleton);
             builder.Register<CreateGame>(Lifetime.Singleton);
-            builder.Register<SwapPieces>(Lifetime.Singleton);
+            builder.Register<PickPiece>(Lifetime.Singleton);
+            builder.Register<ToggleHint>(Lifetime.Singleton);
 
-            builder.Register<GameEventEmitter>(Lifetime.Singleton);
-
-            builder.Register<PhotoStore>(Lifetime.Singleton);
+            builder.RegisterInstance(new PhotoStore());
             builder.RegisterInstance(new OptionStore());
-            builder.Register<GamePlayStore>(Lifetime.Singleton);
+            builder.RegisterInstance(new GamePlayStore());
 
-            builder.RegisterInstance(new LoremPicsumImageProvider());
+            builder.RegisterInstance<IPhotoProvider>(new LoremPicsumPhotoProvider());
 
             builder.RegisterComponentInHierarchy<GallerySheet>();
             builder.RegisterComponentInHierarchy<GamePlaySheet>();

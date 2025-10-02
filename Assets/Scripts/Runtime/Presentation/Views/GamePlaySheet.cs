@@ -16,6 +16,14 @@ namespace MGSP.PhotoPuzzle.Presentation.Views
         public Observable<Unit> ReplayRequested => replayButton.OnClickAsObservable();
         public Observable<Unit> ClearRequested => clearButton.OnClickAsObservable();
 
+        public void SetPreparing()
+        {
+            newGameButton.gameObject.SetActive(false);
+            replayButton.gameObject.SetActive(false);
+            previewButton.gameObject.SetActive(false);
+            clearButton.gameObject.SetActive(false);
+        }
+
         public void SetPlaying()
         {
             newGameButton.gameObject.SetActive(true);

@@ -1,9 +1,7 @@
-﻿{
-    "name": "MGSP.PhotoPuzzle.Infrastructures",
-    "rootNamespace": "MGSP.PhotoPuzzle.Infrastructures",
+{
+    "name": "UniGears",
+    "rootNamespace": "UniGears",
     "references": [
-        "GUID:c037be609715dab41b5c4ab68080ce7c",
-        "GUID:599e29402270062469861aeb45a12692",
         "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [],
